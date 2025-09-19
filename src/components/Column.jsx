@@ -1,9 +1,41 @@
-import React from 'react'
+import React from "react";
+import { Ellipsis, Plus } from "lucide-react";
 
-const Column = () => {
+const Column = ({ label, color, tasks }) => {
   return (
-    <div>Column</div>
-  )
-}
+    <section className="relative min-w-[350px] w-[350px] min-h-[600px] border border-[var(--color-border)] rounded-md">
+      {/* Header */}
+      <div className="flex items-center justify-between border-b px-3.5 pt-3.5 pb-5">
+        {/* Task Header */}
+        <div className="flex items-center gap-2">
+          <div className="w-[10px] h-[10px] rounded-full" style={{backgroundColor: color}} />
+          <h2 className="text-sm font-medium capitalize">{label.trim()}</h2>
+          <p className="px-2 py-0.5 rounded-sm text-xs bg-[var(--color-bg-secondary)]">
+            {tasks.length}
+          </p>
+        </div>
+        {/* Options and Add Icon */}
+        <div className="flex items-center gap-3">
+          <span className="p-1 hover:bg-[var(--color-bg-secondary)] rounded-md transition-all duration-200 ease-linear">
+            <Plus size={16} />
+          </span>
+          <span className="p-1 hover:bg-[var(--color-bg-secondary)] rounded-md transition-all duration-200 ease-linear">
+            <Ellipsis size={16} />
+          </span>
+        </div>
+      </div>
 
-export default Column
+      {/* Tasks */}
+
+      {/* Footer - Add a task */}
+      <div className="absolute bottom-0 border-t w-full px-4 py-4">
+        <div className="flex items-center gap-3 px-1.5 py-2 rounded-sm hover:bg-[var(--color-bg-secondary)] select-none text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:font-medium transition-all duration-200 ease-linear">
+          <Plus size={12} />
+          <p className="text-xs">Add a task</p>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Column;
