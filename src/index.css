@@ -8,23 +8,28 @@
 
 body {
   font-family: "Inter", sans-serif;
+  background-color: var(--color-bg);
 }
 
 @theme {
+  --text-xxs: 10px;
   --color-bg: hsl(210, 20%, 98%);
+  --color-bg-secondary: #eceef2;
   --color-bg-task-count: #F2ECEE;
   --color-text-primary: #281018;
   --color-text-secondary: #654A55;
   --color-text-task-count: #030213;
-  --color-text-high-priority: #129F07;
-  --color-text-medium-priority: #00894B;
-  --color-border: hsl(210, 6%, 93%);
-  --color-orange: #00F0B1;
-  --color-blue: #FF2B7F;
-  --color-purple: #FFAD46;
-  --color-green: #5000C9;
-  --color-high-priority: #E2FFE2;
-  --color-medium-priority: #C2FEF9;
+  --color-text-high-priority: #9f0712;
+  --color-text-medium-priority: #894b00;
+  --color-text-low-priority: #065f46;
+  --color-border: #e5e7eb;
+  --color-orange: #f0b100;
+  --color-blue: #2b7fff;
+  --color-purple: #ad46ff;
+  --color-green: #00c950;
+  --color-high-priority: #ffe2e2;
+  --color-medium-priority: #fef9c2;
+  --color-low-priority: #dcfce7; 
   --color-button-bg: #030213;
 }
 

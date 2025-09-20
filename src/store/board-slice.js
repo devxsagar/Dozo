@@ -9,7 +9,7 @@ const initialState = {
         title: "Design Landing Page",
         description:
           "Create wire frames and mockups for the website’s landing page.",
-        priority: "medium",
+        priority: "low",
         dueDate: new Date().toISOString().split("T")[0],
         assignee: "Alice",
       },

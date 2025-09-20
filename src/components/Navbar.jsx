@@ -12,7 +12,7 @@ const Navbar = () => {
       <div className="w-full flex items-center justify-between">
         <a href="/" className="flex items-center gap-1 text-xl font-medium">
           <span>
-            <Kanban strokeWidth={2.75} />
+            <Kanban strokeWidth={3} />
           </span>
           Dozo
         </a>
@@ -32,7 +32,7 @@ const Navbar = () => {
           </div>
 
           {/* Theme */}
-          <button className="group/theme p-1 hover:bg-secondary  hover:rounded-full transition-all duration-200 ease-linear" onClick={() => setToggle((prev) => !prev)}>
+          <button className="group/theme p-1 hover:bg-bg-secondary  hover:rounded-full transition-all duration-200 ease-linear" onClick={() => setToggle((prev) => !prev)}>
             {toggle ? (
               <Moon
                 className="cursor-pointer hover:opacity-70 duration-200 transition-all ease-linear"
