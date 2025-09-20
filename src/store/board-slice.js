@@ -104,7 +104,7 @@ const initialState = {
     ],
   },
 
-  "final": {
+  final: {
     color: "#f0b100",
     tasks: [
       {
@@ -132,9 +132,30 @@ const boardSlice = createSlice({
   name: "board",
   initialState,
   reducers: {
-    addTask: (state, action) => {},
+    addTask: (state, action) => {
+      const {label, taskDetails, date, priority} = action.payload;
+      const newID = crypto.randomUUID();
+      const newTask = {
+        id: newID,
+        title: taskDetails.title,
+        description: taskDetails.description,
+        priority,
+        dueDate: date,
+        assignee: taskDetails.assignee,
+      }
+
+      state = state[label].tasks.push(newTask)
+    },
+    deleteTask: (state, action) => {
+      const { label, id } = action.payload;
+      if (state[label]) {
+        state[label].tasks = state[label].tasks.filter(
+          (task) => task.id !== id
+        );
+      }
+    },
   },
 });
 
-export const { addTask } = boardSlice.actions;
+export const { addTask, deleteTask } = boardSlice.actions;
 export default boardSlice.reducer;
