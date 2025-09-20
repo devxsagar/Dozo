@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
+const dummyData = {
   "to do": {
     color: "#2b7fff",
     tasks: [
@@ -128,12 +128,19 @@ const initialState = {
   },
 };
 
+const loadTasks = () => {
+  const data = localStorage.getItem("tasks");
+  return data ? JSON.parse(data) : dummyData;
+}
+
+const initialState = loadTasks();
+
 const boardSlice = createSlice({
   name: "board",
   initialState,
   reducers: {
     addTask: (state, action) => {
-      const {label, taskDetails, date, priority} = action.payload;
+      const { label, taskDetails, date, priority } = action.payload;
       const newID = crypto.randomUUID();
       const newTask = {
         id: newID,
@@ -142,9 +149,11 @@ const boardSlice = createSlice({
         priority,
         dueDate: date,
         assignee: taskDetails.assignee,
-      }
+      };
 
-      state = state[label].tasks.push(newTask)
+      state[label].tasks.push(newTask);
+
+      localStorage.setItem("tasks", JSON.stringify(state));
     },
     deleteTask: (state, action) => {
       const { label, id } = action.payload;
@@ -153,6 +162,8 @@ const boardSlice = createSlice({
           (task) => task.id !== id
         );
       }
+
+      localStorage.setItem("tasks", JSON.stringify(state));
     },
   },
 });

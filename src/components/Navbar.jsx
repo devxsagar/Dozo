@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
-import { Kanban, Moon, Search, Sun } from "lucide-react";
+import { Kanban, Moon, Plus, Search, Sun } from "lucide-react";
+import { Button } from "./ui/button";
 
 const Navbar = () => {
   const [input, setInput] = useState("");
@@ -18,21 +19,12 @@ const Navbar = () => {
         </a>
 
         {/* Search Box & Theme Toggle */}
-        <div className="flex items-center gap-8">
-          {/* search box only for large screen */}
-          <div className="relative flex items-center gap-1 max-md:hidden">
-            <Search className="absolute left-3  " size={16} />
-            <Input
-              className="lg:w-[300px] pl-8 "
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="search tasks here..."
-            />
-          </div>
-
+        <div className="flex items-center gap-8 max-md:gap-4">
           {/* Theme */}
-          <button className="group/theme p-1 hover:bg-bg-secondary  hover:rounded-full transition-all duration-200 ease-linear" onClick={() => setToggle((prev) => !prev)}>
+          <button
+            className="group/theme p-1 hover:bg-bg-secondary  hover:rounded-full transition-all duration-200 ease-linear"
+            onClick={() => setToggle((prev) => !prev)}
+          >
             {toggle ? (
               <Moon
                 className="cursor-pointer hover:opacity-70 duration-200 transition-all ease-linear"
@@ -45,6 +37,21 @@ const Navbar = () => {
               />
             )}
           </button>
+          {/* search box only for large screen */}
+          <div className="relative flex items-center gap-1 max-md:hidden">
+            <Search className="absolute left-3  " size={16} />
+            <Input
+              className="lg:w-[300px] pl-8 "
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="search tasks here..."
+            />
+          </div>
+
+          <Button>
+            <Plus /> Add a board
+          </Button>
         </div>
       </div>
 
