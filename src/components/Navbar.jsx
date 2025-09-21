@@ -2,10 +2,14 @@ import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Kanban, Moon, Plus, Search, Sun } from "lucide-react";
 import { Button } from "./ui/button";
+import { useDispatch } from "react-redux";
+import { showBoard } from "@/store/add-new-board-slice";
 
 const Navbar = () => {
   const [input, setInput] = useState("");
   const [toggle, setToggle] = useState(false);
+
+  const dispatch = useDispatch();
 
   return (
     <nav className="px-1 py-4 max-md:flex max-md:flex-col max-md:gap-4">
@@ -48,8 +52,8 @@ const Navbar = () => {
               placeholder="search tasks here..."
             />
           </div>
-
-          <Button>
+          {/* Add Board */}
+          <Button onClick={() => dispatch(showBoard(true))} >
             <Plus /> Add a board
           </Button>
         </div>

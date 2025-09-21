@@ -7,9 +7,8 @@ const TaskCard = ({ label, task }) => {
   const dispatch = useDispatch();
   const { id, priority, title, description, dueDate, assignee } = task;
 
-
   const handleDeleteButton = (label, id) => {
-    dispatch(deleteTask({label, id}))
+    dispatch(deleteTask({ label, id }));
   };
 
   return (
@@ -29,10 +28,12 @@ const TaskCard = ({ label, task }) => {
           >
             {priority}
           </p>
-          <span className="flex items-center gap-1 text-xxs text-text-secondary">
-            <Calendar size={12} />
-            <p>{dueDate}</p>
-          </span>
+          {dueDate && (
+            <span className="flex items-center gap-1 text-xxs text-text-secondary">
+              <Calendar size={12} />
+              <p>{dueDate}</p>
+            </span>
+          )}
         </div>
 
         {/* Task and Description */}

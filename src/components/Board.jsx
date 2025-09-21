@@ -1,12 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import Column from "./Column";
-
+import AddNewBoard from "./AddNewBoard";
 
 const Board = () => {
- 
-
   const data = useSelector((state) => state.board);
+  const newBoard = useSelector((state) => state.newBoard);
 
   return (
     <div className="relative px-1 py-5 flex gap-5 overflow-x-auto">
@@ -14,11 +13,15 @@ const Board = () => {
         const uniqueID = crypto.randomUUID(); // generate unique id
         const { color, tasks } = data[label]; // destructuring object
         return (
-          <Column key={uniqueID} label={label} color={color} tasks={tasks}/>
+          <Column key={uniqueID} label={label} color={color} tasks={tasks} />
         );
       })}
 
-      
+      {newBoard && (
+        <div className="fixed inset-0 z-20 w-screen h-screen bg-black/70">
+          <AddNewBoard />
+        </div>
+      )}
     </div>
   );
 };

@@ -17,7 +17,7 @@ import { addTask } from "@/store/board-slice";
 
 const AddNewTask = ({ label, setShowAddTask }) => {
   const [date, setDate] = useState();
-  const [priority, setPriority] = useState();
+  const [priority, setPriority] = useState("medium");
   const [taskDetails, setTaskDetails] = useState({
     title: "",
     description: "",
@@ -28,6 +28,11 @@ const AddNewTask = ({ label, setShowAddTask }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if(!priority) {
+      ale
+    }
+
     dispatch(addTask({ label, taskDetails, date, priority }));
   };
 
@@ -51,6 +56,7 @@ const AddNewTask = ({ label, setShowAddTask }) => {
             <Input
               name="title"
               type="text"
+              required
               className="bg-bg-body border-[#d1d5dc]"
               value={taskDetails.title}
               onChange={(e) => {
@@ -69,6 +75,7 @@ const AddNewTask = ({ label, setShowAddTask }) => {
             <Textarea
               name="description"
               type="text"
+              required
               value={taskDetails.description}
               onChange={(e) => {
                 const { name, value } = e.target;
@@ -105,6 +112,7 @@ const AddNewTask = ({ label, setShowAddTask }) => {
             <Input
               name="assignee"
               type="text"
+              required
               value={taskDetails.assignee}
               onChange={(e) => {
                 const { name, value } = e.target;
