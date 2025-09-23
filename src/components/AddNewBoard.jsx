@@ -1,22 +1,39 @@
-import React, { useRef, useState } from "react";
-import { useDispatch } from "react-redux";
-import { removeBoard } from "@/store/add-new-board-slice";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toast, Toaster } from "sonner";
 import { X } from "lucide-react";
 import { Input } from "./ui/input";
 import { Label } from "@radix-ui/react-label";
 import { Button } from "./ui/button";
 import ColorPicker from "./ColorPicker";
+import { removeBoard } from "@/store/add-new-board-slice";
 import { addNewBoard } from "@/store/board-slice";
 
 const AddNewBoard = () => {
-  const [boardName, setBoardName] = useState("")
+  const [boardName, setBoardName] = useState("");
   const [color, setColor] = useState("#ff0000");
 
+  const data = useSelector((state) => state.board);
   const dispatch = useDispatch();
+
+  console.log(data);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(addNewBoard({boardName, color}))
+
+    // if board is present then it will not create the board with same name
+    if (data[boardName.trim().toLowerCase()]) {
+      toast.error("Board already exists.", {
+        style: {
+          background: "#f14445",
+          color: "white",
+        },
+      });
+      return;
+    }
+
+    dispatch(addNewBoard({ boardName, color }));
+    dispatch(removeBoard(false));
   };
 
   return (
@@ -38,6 +55,7 @@ const AddNewBoard = () => {
           <Input
             name="title"
             type="text"
+            required
             value={boardName}
             onChange={(e) => setBoardName(e.target.value)}
             className="bg-bg-body border-[#d1d5dc]"
@@ -49,7 +67,12 @@ const AddNewBoard = () => {
         </span>
 
         <span className="flex gap-2 justify-end items-center">
-          <Button variant="outline" onClick={() => dispatch(removeBoard(false))}>Cancel</Button>
+          <Button
+            variant="outline"
+            onClick={() => dispatch(removeBoard(false))}
+          >
+            Cancel
+          </Button>
           <Button variant="default" type="submit">
             Add Board
           </Button>

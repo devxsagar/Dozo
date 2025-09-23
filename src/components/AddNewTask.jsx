@@ -29,10 +29,6 @@ const AddNewTask = ({ label, setShowAddTask }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if(!priority) {
-      ale
-    }
-
     dispatch(addTask({ label, taskDetails, date, priority }));
   };
 

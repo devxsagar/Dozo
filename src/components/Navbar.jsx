@@ -4,6 +4,8 @@ import { Kanban, Moon, Plus, Search, Sun } from "lucide-react";
 import { Button } from "./ui/button";
 import { useDispatch } from "react-redux";
 import { showBoard } from "@/store/add-new-board-slice";
+import { Toaster } from "./ui/sonner";
+
 
 const Navbar = () => {
   const [input, setInput] = useState("");
@@ -70,6 +72,8 @@ const Navbar = () => {
           placeholder="search tasks here..."
         />
       </div>
+
+      <Toaster position="top-center"/>
     </nav>
   );
 };
