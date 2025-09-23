@@ -94,6 +94,11 @@ const boardSlice = createSlice({
       state[boardName] = { color, tasks: [] };
       localStorage.setItem("tasks", JSON.stringify(state));
     },
+    deleteBoard: (state, action) => {
+      delete state[action.payload]; // delete the board
+      localStorage.setItem("tasks", JSON.stringify(state)); // update storage
+    },
+
     addTask: (state, action) => {
       const { label, taskDetails, date, priority } = action.payload;
       // Generate random unique id
@@ -127,5 +132,6 @@ const boardSlice = createSlice({
   },
 });
 
-export const { addNewBoard, addTask, deleteTask } = boardSlice.actions;
+export const { addNewBoard, deleteBoard, addTask, deleteTask } =
+  boardSlice.actions;
 export default boardSlice.reducer;

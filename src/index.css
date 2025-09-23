@@ -11,6 +11,10 @@ body {
   background-color: var(--color-bg-body);
 }
 
+.animate-hover {
+  transition: all 0.2s linear;
+}
+
 @theme {
   --text-xxs: 10px;
   --color-bg-body: #f9fafb;

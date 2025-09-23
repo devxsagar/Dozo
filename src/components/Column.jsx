@@ -1,10 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Ellipsis, Plus } from "lucide-react";
 import TaskCard from "./TaskCard";
 import AddNewTask from "./AddNewTask";
+import BoardOptionsMenu from "./BoardOptionsMenu";
 
 const Column = ({ label, color, tasks }) => {
   const [showAddTask, setShowAddTask] = useState(false);
+  const [optionsMenu, setOptionsMenu] = useState(false);
+
+  const optionsMenuRef = useRef();
+  const ellipsisButtonRef = useRef();
+
+  useEffect(() => {
+    function handleClickOutside(e) {
+      if (
+        optionsMenuRef.current &&
+        !optionsMenuRef.current.contains(e.target) &&
+        !ellipsisButtonRef.current.contains(e.target) // this will exclude the menu button
+      ) {
+        setOptionsMenu(false);
+      }
+    }
+
+    if (optionsMenu) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [optionsMenu]);
 
   return (
     <section className="relative min-w-[350px] w-[350px] min-h-[600px] bg-bg-primary border border-border rounded-md">
@@ -22,16 +47,27 @@ const Column = ({ label, color, tasks }) => {
           </p>
         </div>
         {/* Options and Add Icon */}
-        <div className="flex items-center gap-3">
+        <div className="relative flex items-center gap-3">
           <button
             className="p-1 hover:bg-bg-secondary rounded-md transition-all duration-200 ease-linear"
             onClick={() => setShowAddTask((prev) => !prev)}
           >
             <Plus size={16} />
           </button>
-          <span className="p-1 hover:bg-bg-secondary rounded-md transition-all duration-200 ease-linear">
+          <button
+            ref={ellipsisButtonRef}
+            className="p-1 hover:bg-bg-secondary rounded-md transition-all duration-200 ease-linear"
+            onClick={() => setOptionsMenu((prev) => !prev)}
+          >
             <Ellipsis size={16} />
-          </span>
+          </button>
+
+          {/* Board Options Menu */}
+          {optionsMenu && (
+            <div ref={optionsMenuRef} className="absolute top-6 right-0">
+              <BoardOptionsMenu label={label} />
+            </div>
+          )}
         </div>
       </div>
 

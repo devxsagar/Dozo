@@ -17,11 +17,12 @@ const Board = () => {
         );
       })}
 
+      {/* Add New Board Card */}
       {newBoard && (
         <div className="fixed inset-0 z-20 w-screen h-screen bg-black/70">
           <AddNewBoard />
         </div>
-      )}
+      )}     
     </div>
   );
 };

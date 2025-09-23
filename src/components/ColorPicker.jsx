@@ -4,7 +4,6 @@ import { ChromePicker } from "react-color";
 export default function ColorPicker({ color, setColor }) {
   const [showPicker, setShowPicker] = useState(false);
   const colorPickerRef = useRef();
-  console.log(showPicker);
 
   useEffect(() => {
     function handleClickOutside(event) {

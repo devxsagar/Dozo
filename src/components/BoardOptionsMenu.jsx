@@ -1,0 +1,37 @@
+import React from "react";
+import { SquarePen, Trash2 } from "lucide-react";
+import { useDispatch } from "react-redux";
+import { deleteBoard } from "@/store/board-slice";
+
+const BoardOptionsMenu = ({ label }) => {
+  const dispatch = useDispatch();
+
+  return (
+    <div className="w-25 h-20 p-2 bg-bg-primary border border-border rounded">
+      <div className="group flex items-center gap-1.5 p-1 hover:bg-bg-secondary select-none animate-hover rounded">
+        <SquarePen
+          size={16}
+          className="opacity-80 group-hover:opacity-100 animate-hover"
+        />
+        <p className="text-sm opacity-80 group-hover:opacity-100 animate-hover">
+          Edit
+        </p>
+      </div>
+
+      <button
+        className="group flex items-center gap-1.5 p-1 hover:bg-bg-secondary select-none animate-hover rounded"
+        onClick={() => dispatch(deleteBoard(label))}
+      >
+        <Trash2
+          size={16}
+          className="opacity-80 group-hover:opacity-100 animate-hover"
+        />
+        <p className="text-sm opacity-80 group-hover:opacity-100 animate-hover">
+          Delete
+        </p>
+      </button>
+    </div>
+  );
+};
+
+export default BoardOptionsMenu;
