@@ -1,10 +1,31 @@
-import { X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ChromePicker } from "react-color";
 
-export default function ColorPicker({color, setColor}) {
+export default function ColorPicker({ color, setColor }) {
   const [showPicker, setShowPicker] = useState(false);
+  const colorPickerRef = useRef();
   console.log(showPicker);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      // if click is outside the color picker, close it
+      if (
+        colorPickerRef.current &&
+        !colorPickerRef.current.contains(event.target)
+      ) {
+        setShowPicker(false);
+      }
+    }
+
+    if (showPicker) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showPicker]);
+
   return (
     <div className="relative flex gap-2">
       <p className="text-sm font-medium">Board color: </p>
@@ -15,19 +36,14 @@ export default function ColorPicker({color, setColor}) {
       ></div>
 
       {/* Color Picker */}
-      <div
-        className="w-full absolute top-8"
-        onClick={() => setShowPicker(false)}
-      >
-        {showPicker && (
-          <div className="w-fit mx-auto" onClick={(e) => e.stopPropagation()}>
-            <ChromePicker
+      {showPicker && (
+        <div ref={colorPickerRef} className="w-full absolute top-8">
+          <ChromePicker
             color={color}
             onChange={(updatedColor) => setColor(updatedColor.hex)}
           />
-          </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

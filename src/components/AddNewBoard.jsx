@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { removeBoard } from "@/store/add-new-board-slice";
 import { X } from "lucide-react";

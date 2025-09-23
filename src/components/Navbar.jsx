@@ -31,12 +31,12 @@ const Navbar = () => {
           >
             {toggle ? (
               <Moon
-                className="cursor-pointer hover:opacity-70 duration-200 transition-all ease-linear"
+                className="cursor-pointer opacity-70 group-hover/theme:opacity-100 duration-200 transition-all ease-linear"
                 size={22}
               />
             ) : (
               <Sun
-                className="cursor-pointer group-hover/theme:opacity-70 duration-200 transition-all ease-linear"
+                className="cursor-pointer opacity-70 group-hover/theme:opacity-100 duration-200 transition-all ease-linear"
                 size={22}
               />
             )}
