@@ -33,6 +33,12 @@ const AddNewBoard = () => {
     }
 
     dispatch(addNewBoard({ boardName, color }));
+    toast.success("Board created successfully!", {
+      style: {
+        background: "#bbf7d0",
+        color: "black",
+      },
+    });
     dispatch(removeBoard(false));
   };
 

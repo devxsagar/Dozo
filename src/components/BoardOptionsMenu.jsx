@@ -2,6 +2,7 @@ import React from "react";
 import { SquarePen, Trash2 } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { deleteBoard } from "@/store/board-slice";
+import { toast } from "sonner";
 
 const BoardOptionsMenu = ({ label }) => {
   const dispatch = useDispatch();
@@ -20,7 +21,15 @@ const BoardOptionsMenu = ({ label }) => {
 
       <button
         className="group w-full flex items-center gap-1.5 p-1 hover:bg-bg-secondary select-none animate-hover rounded"
-        onClick={() => dispatch(deleteBoard(label))}
+        onClick={() => {
+          dispatch(deleteBoard(label));
+          toast.success(`The board ${label.toLowerCase()} has been removed.`, {
+            style: {
+              background: "#bbf7d0",
+              color: "black",
+            },
+          });
+        }}
       >
         <Trash2
           size={16}
