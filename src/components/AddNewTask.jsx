@@ -11,11 +11,12 @@ import {
 } from "@/components/ui/select";
 import DatePicker from "./DatePicker";
 import { Button } from "./ui/button";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Textarea } from "./ui/textarea";
 import { addTask } from "@/store/board-slice";
+import { closeTaskCard } from "@/store/ui-slice";
 
-const AddNewTask = ({ label, setShowAddTask }) => {
+const AddNewTask = ({ label }) => {
   const [date, setDate] = useState();
   const [priority, setPriority] = useState("medium");
   const [taskDetails, setTaskDetails] = useState({
@@ -25,6 +26,7 @@ const AddNewTask = ({ label, setShowAddTask }) => {
   });
 
   const dispatch = useDispatch();
+  const data = useSelector((state) => state.board);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -40,7 +42,7 @@ const AddNewTask = ({ label, setShowAddTask }) => {
         <X
           size={18}
           className="opacity-60 hover:opacity-100 transition-all duration-200 ease-linear"
-          onClick={() => setShowAddTask((prev) => !prev)}
+          onClick={() => dispatch(closeTaskCard(false))}
         />
       </div>
 
@@ -123,7 +125,7 @@ const AddNewTask = ({ label, setShowAddTask }) => {
         <div className="flex items-center justify-end gap-3 mt-6">
           <Button
             variant="outline"
-            onClick={() => setShowAddTask((prev) => !prev)}
+            onClick={() => dispatch(closeTaskCard(false))}
           >
             Cancel
           </Button>

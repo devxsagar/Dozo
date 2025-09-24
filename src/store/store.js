@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import boardReducer from "./board-slice";
-import newBoardReducer from "./add-new-board-slice";
+import uiSliceReducer from "./ui-slice";
 
 const store = configureStore({
   reducer: {
     board: boardReducer,
-    newBoard: newBoardReducer,
+    ui: uiSliceReducer,
   },
 });
 

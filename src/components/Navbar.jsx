@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { Input } from "@/components/ui/input";
 import { Kanban, Moon, Plus, Search, Sun } from "lucide-react";
+import { Input } from "@/components/ui/input";
 import { Button } from "./ui/button";
-import { useDispatch } from "react-redux";
-import { showBoard } from "@/store/add-new-board-slice";
 import { Toaster } from "./ui/sonner";
-
+import { useDispatch } from "react-redux";
+import { showBoardCard } from "@/store/ui-slice";
 
 const Navbar = () => {
   const [input, setInput] = useState("");
@@ -55,7 +54,7 @@ const Navbar = () => {
             />
           </div>
           {/* Add Board */}
-          <Button onClick={() => dispatch(showBoard(true))} >
+          <Button onClick={() => dispatch(showBoardCard(true))}>
             <Plus /> Add a board
           </Button>
         </div>
@@ -73,7 +72,7 @@ const Navbar = () => {
         />
       </div>
 
-      <Toaster position="top-center"/>
+      <Toaster position="top-center" />
     </nav>
   );
 };

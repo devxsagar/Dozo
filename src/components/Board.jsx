@@ -5,7 +5,7 @@ import AddNewBoard from "./AddNewBoard";
 
 const Board = () => {
   const data = useSelector((state) => state.board);
-  const newBoard = useSelector((state) => state.newBoard);
+  const isBoardCardOpen = useSelector((state) => state.ui.isBoardCardOpen);
 
   return (
     <div className="relative px-1 py-5 flex gap-5 overflow-x-auto">
@@ -18,11 +18,11 @@ const Board = () => {
       })}
 
       {/* Add New Board Card */}
-      {newBoard && (
+      {isBoardCardOpen && (
         <div className="fixed inset-0 z-20 w-screen h-screen bg-black/70">
           <AddNewBoard />
         </div>
-      )}     
+      )}
     </div>
   );
 };

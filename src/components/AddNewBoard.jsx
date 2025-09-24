@@ -6,7 +6,7 @@ import { Input } from "./ui/input";
 import { Label } from "@radix-ui/react-label";
 import { Button } from "./ui/button";
 import ColorPicker from "./ColorPicker";
-import { removeBoard } from "@/store/add-new-board-slice";
+import { closeBoardCard } from "@/store/ui-slice";
 import { addNewBoard } from "@/store/board-slice";
 
 const AddNewBoard = () => {
@@ -15,8 +15,6 @@ const AddNewBoard = () => {
 
   const data = useSelector((state) => state.board);
   const dispatch = useDispatch();
-
-  console.log(data);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -39,7 +37,7 @@ const AddNewBoard = () => {
         color: "black",
       },
     });
-    dispatch(removeBoard(false));
+    dispatch(closeBoardCard(false));
   };
 
   return (
@@ -50,7 +48,7 @@ const AddNewBoard = () => {
         <X
           size={18}
           className="opacity-60 hover:opacity-100 transition-all duration-200 ease-linear"
-          onClick={() => dispatch(removeBoard(false))}
+          onClick={() => dispatch(closeBoardCard(false))}
         />
       </div>
 
@@ -75,7 +73,7 @@ const AddNewBoard = () => {
         <span className="flex gap-2 justify-end items-center">
           <Button
             variant="outline"
-            onClick={() => dispatch(removeBoard(false))}
+            onClick={() => dispatch(closeBoardCard(false))}
           >
             Cancel
           </Button>
