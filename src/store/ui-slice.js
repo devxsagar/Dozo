@@ -5,6 +5,10 @@ const uiSlice = createSlice({
   initialState: {
     isBoardCardOpen: false,
     isTaskCardOpen: false,
+    editTaskCard: {
+      index: null,
+      label: "",
+    },
   },
   reducers: {
     showBoardCard: (state, action) => {
@@ -13,14 +17,14 @@ const uiSlice = createSlice({
     closeBoardCard: (state, action) => {
       state.isBoardCardOpen = action.payload;
     },
-    showTaskCard: (state, action) => {
-      state.isTaskCardOpen = action.payload;
-    },
-    closeTaskCard: (state, action) => {
-      state.isTaskCardOpen = action.payload;
+    setEditTaskCard: (state, action) => {
+      const { index, label } = action.payload;
+      state.editTaskCard.index = index;
+      state.editTaskCard.label = label;
     },
   },
 });
 
-export const { showBoardCard, closeBoardCard, showTaskCard, closeTaskCard } = uiSlice.actions;
+export const { showBoardCard, closeBoardCard, setEditTaskCard } =
+  uiSlice.actions;
 export default uiSlice.reducer;

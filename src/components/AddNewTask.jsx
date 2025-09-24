@@ -1,5 +1,5 @@
 import { X } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Input } from "./ui/input";
 import { Label } from "@radix-ui/react-label";
 import {
@@ -14,10 +14,10 @@ import { Button } from "./ui/button";
 import { useDispatch, useSelector } from "react-redux";
 import { Textarea } from "./ui/textarea";
 import { addTask } from "@/store/board-slice";
-import { closeTaskCard } from "@/store/ui-slice";
+import { setEditTaskCard } from "@/store/ui-slice";
 
-const AddNewTask = ({ label }) => {
-  const [date, setDate] = useState();
+const AddNewTask = ({ label, setShowAddNewTaskCard }) => {
+  const [date, setDate] = useState("");
   const [priority, setPriority] = useState("medium");
   const [taskDetails, setTaskDetails] = useState({
     title: "",
@@ -27,12 +27,39 @@ const AddNewTask = ({ label }) => {
 
   const dispatch = useDispatch();
   const data = useSelector((state) => state.board);
+  const editTaskCard = useSelector((state) => state.ui.editTaskCard);
+  console.log(label);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     dispatch(addTask({ label, taskDetails, date, priority }));
   };
+
+  // useEffect(() => {
+  //   if (!editTaskCard.label || editTaskCard.index === null) return;
+
+  //   const editTaskPreviousData =
+  //     data[editTaskCard.label]?.tasks[editTaskCard.index];
+
+  //   if (!editTaskPreviousData) return; // safety check
+  //   console.log(editTaskCard);
+  //   console.log(editTaskPreviousData);
+
+  //   if (editTaskCard.label) {
+  //     setDate(editTaskPreviousData.dueDate);
+  //     setPriority(editTaskPreviousData.priority || "medium");
+  //     setTaskDetails({
+  //       title: editTaskPreviousData.title,
+  //       description: editTaskPreviousData.description,
+  //       assignee: editTaskPreviousData.assignee,
+  //     });
+  //   }
+
+  //   return () => {
+  //     dispatch(setEditTaskCard({ index: null, label: "" }));
+  //   };
+  // }, [editTaskCard]);
 
   return (
     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[390px] sm:w-[380px] md:w-[440px] md:max-w-[440px] md:h-[580px] bg-bg-primary border border-border py-2.5 rounded">
@@ -42,7 +69,7 @@ const AddNewTask = ({ label }) => {
         <X
           size={18}
           className="opacity-60 hover:opacity-100 transition-all duration-200 ease-linear"
-          onClick={() => dispatch(closeTaskCard(false))}
+          onClick={() => setShowAddNewTaskCard(false)}
         />
       </div>
 
@@ -125,7 +152,7 @@ const AddNewTask = ({ label }) => {
         <div className="flex items-center justify-end gap-3 mt-6">
           <Button
             variant="outline"
-            onClick={() => dispatch(closeTaskCard(false))}
+            onClick={() => setShowAddNewTaskCard(false)}
           >
             Cancel
           </Button>

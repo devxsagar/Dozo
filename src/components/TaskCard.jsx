@@ -1,9 +1,10 @@
 import { deleteTask } from "@/store/board-slice";
+import { setEditTaskCard } from "@/store/ui-slice";
 import { Calendar, SquarePen, Trash2 } from "lucide-react";
 import React from "react";
 import { useDispatch } from "react-redux";
 
-const TaskCard = ({ label, task }) => {
+const TaskCard = ({ label, task, index, setShowAddNewTaskCard }) => {
   const dispatch = useDispatch();
   const { id, priority, title, description, dueDate, assignee } = task;
 
@@ -51,7 +52,13 @@ const TaskCard = ({ label, task }) => {
           Assignee: {assignee}
         </p>
         <div className="flex items-center gap-3">
-          <button className="p-1 rounded-full hover:bg-bg-secondary transition-all duration-200 ease-linear">
+          <button
+            className="p-1 rounded-full hover:bg-bg-secondary transition-all duration-200 ease-linear"
+            onClick={() => {
+              dispatch(setEditTaskCard({ index, label }));
+              setShowAddNewTaskCard(true)
+            }}
+          >
             <SquarePen size={16} />
           </button>
           <button

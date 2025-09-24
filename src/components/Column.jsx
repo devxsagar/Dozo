@@ -1,16 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import TaskCard from "./TaskCard";
 import AddNewTask from "./AddNewTask";
 import { Ellipsis, Plus } from "lucide-react";
-import { showTaskCard } from "@/store/ui-slice";
 import BoardOptionsMenu from "./BoardOptionsMenu";
 
 const Column = ({ label, color, tasks }) => {
   const [optionsMenu, setOptionsMenu] = useState(false);
+  const [showAddNewTaskCard, setShowAddNewTaskCard] = useState(false);
 
   const dispatch = useDispatch()
-  const isTaskCardOpen = useSelector((state) => state.ui.isTaskCardOpen);
 
   const optionsMenuRef = useRef();
   const ellipsisButtonRef = useRef();
@@ -54,7 +53,7 @@ const Column = ({ label, color, tasks }) => {
         <div className="relative flex items-center gap-3">
           <button
             className="p-1 hover:bg-bg-secondary rounded-md transition-all duration-200 ease-linear"
-            onClick={() => dispatch(showTaskCard(true))}
+            onClick={() => setShowAddNewTaskCard(true)}
           >
             <Plus size={16} />
           </button>
@@ -77,8 +76,8 @@ const Column = ({ label, color, tasks }) => {
 
       {/* Tasks */}
       <div className="px-3.5 pt-3.5 flex flex-col gap-2 mb-20">
-        {tasks.map((task) => {
-          return <TaskCard label={label} key={task.id} task={task} />;
+        {tasks.map((task, index) => {
+          return <TaskCard label={label} key={task.id} task={task} index={index} setShowAddNewTaskCard={setShowAddNewTaskCard} />;
         })}
       </div>
 
@@ -86,16 +85,16 @@ const Column = ({ label, color, tasks }) => {
       <div className="absolute bottom-0 border-t w-full px-4 py-4">
         <button
           className="flex w-full items-center gap-3 px-1.5 py-2 rounded-sm cursor-pointer hover:bg-bg-secondary select-none text-text-secondary hover:text-text-primary hover:font-medium transition-all duration-200 ease-linear"
-          onClick={() => dispatch(showTaskCard(true))}
+          onClick={() => setShowAddNewTaskCard(true)}
         >
           <Plus size={12} />
           <p className="text-xs">Add a task</p>
         </button>
       </div>
 
-      {isTaskCardOpen && (
+      {showAddNewTaskCard && (
         <div className="fixed inset-0 z-20 w-screen h-screen bg-black/30">
-          <AddNewTask label={label} />
+          <AddNewTask label={label} setShowAddNewTaskCard={setShowAddNewTaskCard} />
         </div>
       )}
     </section>
