@@ -119,6 +119,21 @@ const boardSlice = createSlice({
       // Save it in the local storage
       localStorage.setItem("tasks", JSON.stringify(state));
     },
+    editTask: (state, action) => {
+      const { label, taskDetails, date, priority, taskIndex } = action.payload;
+      const prevTask = state[label].tasks[taskIndex];
+
+      state[label].tasks[taskIndex] = {
+        id: prevTask.id,
+        title: taskDetails.title,
+        description: taskDetails.description,
+        priority: priority || prevTask.priority,
+        dueDate: date,
+        assignee: taskDetails.assignee,
+      };
+
+      localStorage.setItem("tasks", JSON.stringify(state));
+    },
     deleteTask: (state, action) => {
       const { label, id } = action.payload;
       if (state[label]) {
@@ -132,6 +147,6 @@ const boardSlice = createSlice({
   },
 });
 
-export const { addNewBoard, deleteBoard, addTask, deleteTask } =
+export const { addNewBoard, deleteBoard, addTask, editTask, deleteTask } =
   boardSlice.actions;
 export default boardSlice.reducer;
