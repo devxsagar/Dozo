@@ -56,7 +56,7 @@ const AddNewTask = ({ label, setShowAddNewTaskCard }) => {
 
     if (editTaskCard.label) {
       setDate(editTaskPreviousData.dueDate);
-      setPriority(editTaskPreviousData.priority || "medium");
+      setPriority(editTaskPreviousData.priority || "high");
       setTaskDetails({
         title: editTaskPreviousData.title,
         description: editTaskPreviousData.description,
@@ -166,7 +166,7 @@ const AddNewTask = ({ label, setShowAddNewTaskCard }) => {
           >
             Cancel
           </Button>
-          <Button type="submit">Add Task</Button>
+          <Button type="submit">{editTaskCard.label ? "Edit Task" : "Add Task"}</Button>
         </div>
       </form>
     </div>
