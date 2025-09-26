@@ -9,6 +9,9 @@ const uiSlice = createSlice({
       index: null,
       label: "",
     },
+    editBoardDetails: {
+      label: ""
+    }
   },
   reducers: {
     showBoardCard: (state, action) => {
@@ -22,9 +25,12 @@ const uiSlice = createSlice({
       state.editTaskCard.index = index;
       state.editTaskCard.label = label;
     },
+    setEditBoardDetails: (state, action) => {
+      state.editBoardDetails.label = action.payload;
+    }
   },
 });
 
-export const { showBoardCard, closeBoardCard, setEditTaskCard } =
+export const { showBoardCard, closeBoardCard, setEditTaskCard, setEditBoardDetails } =
   uiSlice.actions;
 export default uiSlice.reducer;

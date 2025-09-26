@@ -94,6 +94,31 @@ const boardSlice = createSlice({
       state[boardName] = { color, tasks: [] };
       localStorage.setItem("tasks", JSON.stringify(state));
     },
+    editBoard: (state, action) => {
+      const { editBoardName, boardName, color } = action.payload;
+
+      // Create a new object to store the updated state while preserving key order
+      const newState = {};
+
+      // Loop through existing boards in the state
+      for (let key of Object.keys(state)) {
+        // If the current key matches the board to edit:
+        // - Use the new board name as the key
+        // - Keep existing board data, but update color if provided
+        if (key === editBoardName) {
+          newState[boardName] = {
+            ...state[key],
+            color: color || state[key].color,
+          };
+        } else {
+          // Otherwise, copy the board as-is
+          newState[key] = state[key];
+        }
+      }
+      localStorage.setItem("tasks", JSON.stringify(newState));
+      // Return the new state (Immer will replace the old state)
+      return newState;
+    },
     deleteBoard: (state, action) => {
       delete state[action.payload]; // delete the board
       localStorage.setItem("tasks", JSON.stringify(state)); // update storage
@@ -147,6 +172,12 @@ const boardSlice = createSlice({
   },
 });
 
-export const { addNewBoard, deleteBoard, addTask, editTask, deleteTask } =
-  boardSlice.actions;
+export const {
+  addNewBoard,
+  editBoard,
+  deleteBoard,
+  addTask,
+  editTask,
+  deleteTask,
+} = boardSlice.actions;
 export default boardSlice.reducer;

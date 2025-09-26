@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast, Toaster } from "sonner";
 import { X } from "lucide-react";
@@ -6,14 +6,15 @@ import { Input } from "./ui/input";
 import { Label } from "@radix-ui/react-label";
 import { Button } from "./ui/button";
 import ColorPicker from "./ColorPicker";
-import { closeBoardCard } from "@/store/ui-slice";
-import { addNewBoard } from "@/store/board-slice";
+import { closeBoardCard, setEditBoardDetails } from "@/store/ui-slice";
+import { addNewBoard, editBoard } from "@/store/board-slice";
 
 const AddNewBoard = () => {
   const [boardName, setBoardName] = useState("");
   const [color, setColor] = useState("#ff0000");
 
   const data = useSelector((state) => state.board);
+  const editBoardName = useSelector((state) => state.ui.editBoardDetails.label);
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
@@ -30,15 +31,35 @@ const AddNewBoard = () => {
       return;
     }
 
-    dispatch(addNewBoard({ boardName, color }));
-    toast.success("Board created successfully!", {
-      style: {
-        background: "#bbf7d0",
-        color: "black",
-      },
-    });
+    if (editBoardName) {
+      dispatch(editBoard({ editBoardName, boardName, color }));
+      dispatch(setEditBoardDetails(""));
+      toast.success("Board updated successfully!", {
+        style: {
+          background: "#bbf7d0",
+          color: "black",
+        },
+      });
+    } else {
+      dispatch(addNewBoard({ boardName, color }));
+      toast.success("Board created successfully!", {
+        style: {
+          background: "#bbf7d0",
+          color: "black",
+        },
+      });
+    }
     dispatch(closeBoardCard(false));
   };
+
+  useEffect(() => {
+    if (!editBoardName || !data) return;
+
+    const editBoardPreviousColor = data[editBoardName].color;
+
+    setBoardName(editBoardName);
+    setColor(editBoardPreviousColor);
+  }, [editBoardName]);
 
   return (
     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[390px] sm:w-[380px] md:w-[440px] md:max-w-[440px] md:h-[250px] bg-bg-primary border border-border py-2.5 rounded">
@@ -48,7 +69,10 @@ const AddNewBoard = () => {
         <X
           size={18}
           className="opacity-60 hover:opacity-100 transition-all duration-200 ease-linear"
-          onClick={() => dispatch(closeBoardCard(false))}
+          onClick={() => {
+            dispatch(closeBoardCard(false));
+            dispatch(setEditBoardDetails(""));
+          }}
         />
       </div>
 
@@ -73,12 +97,15 @@ const AddNewBoard = () => {
         <span className="flex gap-2 justify-end items-center">
           <Button
             variant="outline"
-            onClick={() => dispatch(closeBoardCard(false))}
+            onClick={() => {
+              dispatch(closeBoardCard(false));
+              dispatch(setEditBoardDetails(""));
+            }}
           >
             Cancel
           </Button>
           <Button variant="default" type="submit">
-            Add Board
+            {editBoardName ? "Edit Board" : "Add Board"}
           </Button>
         </span>
       </form>
