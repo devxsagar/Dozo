@@ -1,18 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import TaskCard from "./TaskCard";
 import AddNewTask from "./AddNewTask";
 import { Ellipsis, Plus } from "lucide-react";
 import BoardOptionsMenu from "./BoardOptionsMenu";
+import { handleDragAndDrop } from "@/store/board-slice";
 
 const Column = ({ label, color, tasks }) => {
   const [optionsMenu, setOptionsMenu] = useState(false);
   const [showAddNewTaskCard, setShowAddNewTaskCard] = useState(false);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const optionsMenuRef = useRef();
   const ellipsisButtonRef = useRef();
+
+  const data = useSelector((state) => state.board);
 
   useEffect(() => {
     function handleClickOutside(e) {
@@ -77,7 +80,20 @@ const Column = ({ label, color, tasks }) => {
       {/* Tasks */}
       <div className="px-3.5 pt-3.5 flex flex-col gap-2 mb-20">
         {tasks.map((task, index) => {
-          return <TaskCard label={label} key={task.id} task={task} index={index} setShowAddNewTaskCard={setShowAddNewTaskCard} />;
+          return (
+            <div
+              key={task.id}
+              className="border border-red-600 rounded-sm"
+              draggable
+            >
+              <TaskCard
+                label={label}
+                task={task}
+                index={index}
+                setShowAddNewTaskCard={setShowAddNewTaskCard}
+              />
+            </div>
+          );
         })}
       </div>
 
@@ -94,7 +110,10 @@ const Column = ({ label, color, tasks }) => {
 
       {showAddNewTaskCard && (
         <div className="fixed inset-0 z-20 w-screen h-screen bg-black/30">
-          <AddNewTask label={label} setShowAddNewTaskCard={setShowAddNewTaskCard} />
+          <AddNewTask
+            label={label}
+            setShowAddNewTaskCard={setShowAddNewTaskCard}
+          />
         </div>
       )}
     </section>

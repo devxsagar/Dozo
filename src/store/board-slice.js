@@ -11,7 +11,7 @@ const dummyData = {
           "Create wire frames and mockups for the website’s landing page.",
         priority: "low",
         dueDate: new Date().toISOString().split("T")[0],
-        assignee: "Alice",
+        assignee: "Aarav",
       },
       {
         id: 2,
@@ -19,7 +19,7 @@ const dummyData = {
         description: "",
         priority: "high",
         dueDate: new Date().toISOString().split("T")[0],
-        assignee: "Bob",
+        assignee: "Ananya",
       },
     ],
   },
@@ -33,7 +33,7 @@ const dummyData = {
         description: "Create a responsive navbar with logo and search input.",
         priority: "medium",
         dueDate: new Date().toISOString().split("T")[0],
-        assignee: "Diana",
+        assignee: "Rohan",
       },
       {
         id: 4,
@@ -42,7 +42,7 @@ const dummyData = {
           "Create a card component to display tasks with title, description, and assignee.",
         priority: "low",
         dueDate: new Date().toISOString().split("T")[0],
-        assignee: "Alice",
+        assignee: "Aishwarya",
       },
     ],
   },
@@ -57,7 +57,7 @@ const dummyData = {
           "Review the implementation of the Navbar to ensure responsive design and accessibility.",
         priority: "high",
         dueDate: new Date().toISOString().split("T")[0],
-        assignee: "Charlie",
+        assignee: "Kavya",
       },
     ],
   },
@@ -72,7 +72,7 @@ const dummyData = {
           "Created login and signup pages with form validation and connected them to mock API endpoints.",
         priority: "high",
         dueDate: new Date().toISOString().split("T")[0],
-        assignee: "Evelyn",
+        assignee: "Vikram",
       },
     ],
   },
@@ -169,6 +169,13 @@ const boardSlice = createSlice({
 
       localStorage.setItem("tasks", JSON.stringify(state));
     },
+
+    handleDragAndDrop: (state, action) => {
+      const {sourceTask, sourceContainer, targetContainer} = action.payload;
+
+      state[sourceContainer].tasks = state[sourceContainer].tasks.filter((task) => task.title !== sourceTask.title);
+      state[targetContainer].tasks.push(sourceTask);
+    }
   },
 });
 
@@ -179,5 +186,6 @@ export const {
   addTask,
   editTask,
   deleteTask,
+  handleDragAndDrop
 } = boardSlice.actions;
 export default boardSlice.reducer;
