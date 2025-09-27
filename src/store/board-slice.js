@@ -5,7 +5,7 @@ const dummyData = {
     color: "#2b7fff",
     tasks: [
       {
-        id: 1,
+        id: "default-task-1",
         title: "Design Landing Page",
         description:
           "Create wire frames and mockups for the website’s landing page.",
@@ -14,7 +14,7 @@ const dummyData = {
         assignee: "Aarav",
       },
       {
-        id: 2,
+        id: "default-task-2",
         title: "Configure Redux Toolkit for managing board state.",
         description: "",
         priority: "high",
@@ -28,7 +28,7 @@ const dummyData = {
     color: "#f0b100",
     tasks: [
       {
-        id: 3,
+        id: "default-task-3",
         title: "Build Navbar Component",
         description: "Create a responsive navbar with logo and search input.",
         priority: "medium",
@@ -36,7 +36,7 @@ const dummyData = {
         assignee: "Rohan",
       },
       {
-        id: 4,
+        id: "default-task-4",
         title: "Implement Task Card",
         description:
           "Create a card component to display tasks with title, description, and assignee.",
@@ -51,7 +51,7 @@ const dummyData = {
     color: "#ad46ff",
     tasks: [
       {
-        id: 5,
+        id: "default-task-5",
         title: "Code Review for Navbar Component",
         description:
           "Review the implementation of the Navbar to ensure responsive design and accessibility.",
@@ -66,7 +66,7 @@ const dummyData = {
     color: "#00c950",
     tasks: [
       {
-        id: 9,
+        id: "default-task-6",
         title: "Implement Authentication Flow",
         description:
           "Created login and signup pages with form validation and connected them to mock API endpoints.",
@@ -171,11 +171,20 @@ const boardSlice = createSlice({
     },
 
     handleDragAndDrop: (state, action) => {
-      const {sourceTask, sourceContainer, targetContainer} = action.payload;
+      const { sourceColumn, taskId, targetColumn } = action.payload;
+      if (sourceColumn === targetColumn) return;
 
-      state[sourceContainer].tasks = state[sourceContainer].tasks.filter((task) => task.title !== sourceTask.title);
-      state[targetContainer].tasks.push(sourceTask);
-    }
+      const task = state[sourceColumn].tasks.find((t) => t.id === taskId);
+      if (!task) return;
+
+      state[sourceColumn].tasks = state[sourceColumn].tasks.filter(
+        (t) => t.id !== taskId
+      );
+
+      state[targetColumn].tasks.push(task);
+
+      localStorage.setItem("tasks", JSON.stringify(state));
+    },
   },
 });
 
@@ -186,6 +195,6 @@ export const {
   addTask,
   editTask,
   deleteTask,
-  handleDragAndDrop
+  handleDragAndDrop,
 } = boardSlice.actions;
 export default boardSlice.reducer;

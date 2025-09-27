@@ -4,7 +4,7 @@ import { Calendar, SquarePen, Trash2 } from "lucide-react";
 import React from "react";
 import { useDispatch } from "react-redux";
 
-const TaskCard = ({ label, task, index, setShowAddNewTaskCard }) => {
+const TaskCard = ({ label, task, index, setShowAddNewTaskCard, isOver }) => {
   const dispatch = useDispatch();
   const { id, priority, title, description, dueDate, assignee } = task;
 
@@ -13,7 +13,7 @@ const TaskCard = ({ label, task, index, setShowAddNewTaskCard }) => {
   };
 
   return (
-    <div className="min-h-52 border border-border p-3 rounded-sm flex flex-col justify-between">
+    <div className={`min-h-52 border border-border p-3 rounded-sm flex flex-col justify-between`}>
       <div className="flex flex-col gap-3">
         {/* Header */}
         <div className="flex items-center justify-between">

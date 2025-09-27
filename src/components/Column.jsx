@@ -4,16 +4,16 @@ import TaskCard from "./TaskCard";
 import AddNewTask from "./AddNewTask";
 import { Ellipsis, Plus } from "lucide-react";
 import BoardOptionsMenu from "./BoardOptionsMenu";
-import { handleDragAndDrop } from "@/store/board-slice";
+import { useDraggable, useDroppable } from "@dnd-kit/core";
 
 const Column = ({ label, color, tasks }) => {
   const [optionsMenu, setOptionsMenu] = useState(false);
   const [showAddNewTaskCard, setShowAddNewTaskCard] = useState(false);
 
-  const dispatch = useDispatch();
-
   const optionsMenuRef = useRef();
   const ellipsisButtonRef = useRef();
+
+  const { setNodeRef: setDroppableRef, isOver } = useDroppable({ id: label });
 
   const data = useSelector((state) => state.board);
 
@@ -38,7 +38,12 @@ const Column = ({ label, color, tasks }) => {
   }, [optionsMenu]);
 
   return (
-    <section className="relative min-w-[350px] w-[350px] min-h-[600px] bg-bg-primary border border-border rounded-md">
+    <section
+      ref={setDroppableRef}
+      className={`relative min-w-[350px] w-[350px] min-h-[600px] bg-bg-primary  ${
+        isOver ? "bg-blue-50 border-blue-400" : "bg-bg-primary border-border"
+      } border border-border rounded-md`}
+    >
       {/* Header */}
       <div className="flex items-center justify-between border-b px-3.5 pt-3.5 pb-5">
         {/* Task Header */}
@@ -80,21 +85,47 @@ const Column = ({ label, color, tasks }) => {
       {/* Tasks */}
       <div className="px-3.5 pt-3.5 flex flex-col gap-2 mb-20">
         {tasks.map((task, index) => {
+          const {
+            attributes,
+            listeners,
+            setNodeRef: setDraggableRef,
+            transform,
+            transition,
+            isDragging,
+          } = useDraggable({ id: `${label}:${task.id}` });
+
+          const style = {
+            transform: transform
+              ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
+              : undefined,
+            transition,
+            opacity: isDragging ? 0.5 : 1, // reduce opacity while dragging
+            cursor: "grab",
+          };
+
           return (
             <div
               key={task.id}
-              className="border border-red-600 rounded-sm"
-              draggable
+              className={`rounded-sm relative z-10`}
+              ref={setDraggableRef}
+              style={style}
+              {...listeners}
+              {...attributes}
             >
               <TaskCard
                 label={label}
                 task={task}
                 index={index}
                 setShowAddNewTaskCard={setShowAddNewTaskCard}
+                isOver={isOver}
               />
             </div>
           );
         })}
+
+        {isOver && (
+          <div className="min-h-52 border-2 border-dashed border-blue-400 rounded-md bg-blue-50"></div>
+        )}
       </div>
 
       {/* Footer - Add a task */}
