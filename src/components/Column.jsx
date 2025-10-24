@@ -122,7 +122,7 @@ const Column = ({ label, color, tasks }) => {
         })}
 
         {isOver && (
-          <div className="min-h-52 border-2 border-dashed border-blue-400 rounded-md bg-blue-50"></div>
+          <div className="min-h-52 border-2 border-dashed border-blue-400 rounded-md bg-blue-50 dark:bg-dark-bg-secondary"></div>
         )}
       </div>
 

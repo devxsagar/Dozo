@@ -8,7 +8,6 @@ import { showBoardCard } from "@/store/ui-slice";
 
 const Navbar = ({ toggleDarkMode, darkMode }) => {
   const [input, setInput] = useState("");
-  const [toggle, setToggle] = useState(false);
 
   const dispatch = useDispatch();
 
