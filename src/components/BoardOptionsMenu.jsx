@@ -9,9 +9,9 @@ const BoardOptionsMenu = ({ label }) => {
   const dispatch = useDispatch();
 
   return (
-    <div className="w-25 h-20 p-2 bg-bg-primary border border-border rounded">
+    <div className="w-25 h-20 p-2 bg-bg-primary dark:bg-dark-bg-primary border border-border rounded">
       <button
-        className="group w-full flex items-center gap-1.5 p-1 hover:bg-bg-secondary select-none animate-hover rounded"
+        className="group w-full flex items-center gap-1.5 p-1 hover:bg-bg-secondary dark:hover:bg-dark-bg-secondary select-none animate-hover rounded"
         onClick={() => {
           dispatch(setEditBoardDetails(label));
           dispatch(showBoardCard(true));
@@ -27,7 +27,7 @@ const BoardOptionsMenu = ({ label }) => {
       </button>
 
       <button
-        className="group w-full flex items-center gap-1.5 p-1 hover:bg-bg-secondary select-none animate-hover rounded"
+        className="group w-full flex items-center gap-1.5 p-1 hover:bg-bg-secondary dark:hover:bg-dark-bg-secondary select-none animate-hover rounded"
         onClick={() => {
           dispatch(deleteBoard(label));
           toast.success(`The board ${label.toLowerCase()} has been removed.`, {

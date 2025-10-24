@@ -6,7 +6,7 @@ import { Toaster } from "./ui/sonner";
 import { useDispatch } from "react-redux";
 import { showBoardCard } from "@/store/ui-slice";
 
-const Navbar = () => {
+const Navbar = ({ toggleDarkMode, darkMode }) => {
   const [input, setInput] = useState("");
   const [toggle, setToggle] = useState(false);
 
@@ -27,10 +27,10 @@ const Navbar = () => {
         <div className="flex items-center gap-8 max-md:gap-4">
           {/* Theme */}
           <button
-            className="group/theme p-1 hover:bg-bg-secondary  hover:rounded-full transition-all duration-200 ease-linear"
-            onClick={() => setToggle((prev) => !prev)}
+            className="group/theme p-1 hover:bg-bg-secondary dark:hover:bg-dark-bg-secondary  hover:rounded-full transition-all duration-200 ease-linear"
+            onClick={toggleDarkMode}
           >
-            {toggle ? (
+            {darkMode ? (
               <Moon
                 className="cursor-pointer opacity-70 group-hover/theme:opacity-100 duration-200 transition-all ease-linear"
                 size={22}

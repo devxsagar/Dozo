@@ -62,7 +62,7 @@ const AddNewBoard = () => {
   }, [editBoardName]);
 
   return (
-    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[390px] sm:w-[380px] md:w-[440px] md:max-w-[440px] md:h-[250px] bg-bg-primary border border-border py-2.5 rounded">
+    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[390px] sm:w-[380px] md:w-[440px] md:max-w-[440px] md:h-[250px] bg-bg-primary dark:bg-dark-bg-primary border border-border py-2.5 rounded">
       {/* Header */}
       <div className="flex items-center justify-between px-2.5 pt-2 pb-5 border-b border-border">
         <h4 className="text-base font-medium">Add New Board</h4>

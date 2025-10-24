@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import TaskCard from "./TaskCard";
-import AddNewTask from "./AddNewTask";
-import { Ellipsis, Plus } from "lucide-react";
-import BoardOptionsMenu from "./BoardOptionsMenu";
 import { useDraggable, useDroppable } from "@dnd-kit/core";
+import { Ellipsis, Plus } from "lucide-react";
+import AddNewTask from "./AddNewTask";
+import TaskCard from "./TaskCard";
+import BoardOptionsMenu from "./BoardOptionsMenu";
 
 const Column = ({ label, color, tasks }) => {
   const [optionsMenu, setOptionsMenu] = useState(false);
@@ -14,8 +13,6 @@ const Column = ({ label, color, tasks }) => {
   const ellipsisButtonRef = useRef();
 
   const { setNodeRef: setDroppableRef, isOver } = useDroppable({ id: label });
-
-  const data = useSelector((state) => state.board);
 
   useEffect(() => {
     function handleClickOutside(e) {
@@ -40,7 +37,7 @@ const Column = ({ label, color, tasks }) => {
   return (
     <section
       ref={setDroppableRef}
-      className={`relative min-w-[350px] w-[350px] min-h-[600px] bg-bg-primary  ${
+      className={`relative min-w-[350px] w-[350px] min-h-[600px] bg-bg-primary dark:bg-dark-bg-primary  ${
         isOver ? "bg-blue-50 border-blue-400" : "bg-bg-primary border-border"
       } border border-border rounded-md`}
     >
@@ -53,21 +50,21 @@ const Column = ({ label, color, tasks }) => {
             style={{ backgroundColor: color }}
           />
           <h2 className="text-sm font-medium capitalize">{label.trim()}</h2>
-          <p className="px-2 py-0.5 rounded-sm text-xs bg-bg-secondary">
+          <p className="px-2 py-0.5 rounded-sm text-xs bg-bg-secondary dark:bg-dark-bg-secondary">
             {tasks.length}
           </p>
         </div>
         {/* Options and Add Icon */}
         <div className="relative flex items-center gap-3">
           <button
-            className="p-1 hover:bg-bg-secondary rounded-md transition-all duration-200 ease-linear"
+            className="p-1 hover:bg-bg-secondary dark:hover:bg-dark-bg-secondary rounded-md transition-all duration-200 ease-linear"
             onClick={() => setShowAddNewTaskCard(true)}
           >
             <Plus size={16} />
           </button>
           <button
             ref={ellipsisButtonRef}
-            className="p-1 hover:bg-bg-secondary rounded-md transition-all duration-200 ease-linear"
+            className="p-1 hover:bg-bg-secondary dark:hover:bg-dark-bg-secondary rounded-md transition-all duration-200 ease-linear"
             onClick={() => setOptionsMenu((prev) => !prev)}
           >
             <Ellipsis size={16} />
@@ -75,7 +72,7 @@ const Column = ({ label, color, tasks }) => {
 
           {/* Board Options Menu */}
           {optionsMenu && (
-            <div ref={optionsMenuRef} className="absolute top-6 right-0">
+            <div ref={optionsMenuRef} className="absolute top-6 right-0 z-30">
               <BoardOptionsMenu label={label} />
             </div>
           )}
@@ -118,6 +115,7 @@ const Column = ({ label, color, tasks }) => {
                 index={index}
                 setShowAddNewTaskCard={setShowAddNewTaskCard}
                 isOver={isOver}
+                setDraggableRef={setDraggableRef}
               />
             </div>
           );
@@ -131,7 +129,7 @@ const Column = ({ label, color, tasks }) => {
       {/* Footer - Add a task */}
       <div className="absolute bottom-0 border-t w-full px-4 py-4">
         <button
-          className="flex w-full items-center gap-3 px-1.5 py-2 rounded-sm cursor-pointer hover:bg-bg-secondary select-none text-text-secondary hover:text-text-primary hover:font-medium transition-all duration-200 ease-linear"
+          className="flex w-full items-center gap-3 px-1.5 py-2 rounded-sm cursor-pointer hover:bg-bg-secondary dark:hover:bg-dark-bg-secondary select-none text-text-secondary dark:text-dark-text-secondary hover:text-text-primary dark:hover:text-dark-text-primary hover:font-medium transition-all duration-200 ease-linear"
           onClick={() => setShowAddNewTaskCard(true)}
         >
           <Plus size={12} />

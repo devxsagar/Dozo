@@ -2,13 +2,38 @@ import { Provider } from "react-redux";
 import store from "./store/store";
 import Navbar from "./components/Navbar";
 import Board from "./components/Board";
+import { useEffect, useState } from "react";
 
 const App = () => {
+  const [darkMode, setDarkMode] = useState(() => {
+    const savedTheme = localStorage.getItem("theme");
+    return savedTheme ? JSON.parse(savedTheme) : false;
+  });
+
+  // useEffect runs whenever `darkMode` changes
+  useEffect(() => {
+    // It adds or removes the 'dark' class on the <html> element
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+    // save the theme to the local storage
+    localStorage.setItem("theme", JSON.stringify(darkMode));
+  }, [darkMode]);
+
+  // Toggle function to switch between light and dark modes
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
+
   return (
     <Provider store={store}>
-      <div className="max-w-screen lg:w-[1200px] p-2 mx-auto">
-        <Navbar />
-        <Board />
+      <div className="dark:bg-dark-bg-body">
+        <div className="max-w-screen lg:w-[1200px] p-2 mx-auto">
+          <Navbar toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
+          <Board />
+        </div>
       </div>
     </Provider>
   );

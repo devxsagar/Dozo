@@ -27,8 +27,6 @@ const Board = () => {
 
     // const task = data[sourceColumn].tasks.find((t) => t.id === taskId);
     // if (!task) return;
-    console.log(taskId, sourceColumn);
-    console.log(taskId, targetColumn);
     dispatch(handleDragAndDrop({ sourceColumn, taskId, targetColumn }));
   };
 

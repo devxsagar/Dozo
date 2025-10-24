@@ -13,7 +13,9 @@ const TaskCard = ({ label, task, index, setShowAddNewTaskCard, isOver }) => {
   };
 
   return (
-    <div className={`min-h-52 border border-border p-3 rounded-sm flex flex-col justify-between`}>
+    <div
+      className={`min-h-52 border border-border p-3 rounded-sm flex flex-col justify-between`}
+    >
       <div className="flex flex-col gap-3">
         {/* Header */}
         <div className="flex items-center justify-between">
@@ -30,7 +32,7 @@ const TaskCard = ({ label, task, index, setShowAddNewTaskCard, isOver }) => {
             {priority}
           </p>
           {dueDate && (
-            <span className="flex items-center gap-1 text-xxs text-text-secondary">
+            <span className="flex items-center gap-1 text-xxs text-text-secondary dark:text-dark-text-secondary ">
               <Calendar size={12} />
               <p>{dueDate}</p>
             </span>
@@ -40,7 +42,7 @@ const TaskCard = ({ label, task, index, setShowAddNewTaskCard, isOver }) => {
         {/* Task and Description */}
         <div className="flex flex-col gap-2">
           <h3 className="text-sm font-medium leading-5 capitalize">{title}</h3>
-          <p className="text-xs text-text-secondary text-wrap max-w-full leading-4.5">
+          <p className="text-xs text-text-secondary dark:text-dark-text-secondary  text-wrap max-w-full leading-4.5">
             {description}
           </p>
         </div>
@@ -48,22 +50,24 @@ const TaskCard = ({ label, task, index, setShowAddNewTaskCard, isOver }) => {
 
       {/* Footer */}
       <div className="flex items-center justify-between">
-        <p className="text-xs text-text-secondary text-wrap max-w-full capitalize">
+        <p className="text-xs text-text-secondary dark:text-dark-text-secondary  text-wrap max-w-full capitalize">
           Assignee: {assignee}
         </p>
         <div className="flex items-center gap-3">
           <button
-            className="p-1 rounded-full hover:bg-bg-secondary transition-all duration-200 ease-linear"
-            onClick={() => {
+            className="p-1 rounded-full hover:bg-bg-secondary dark:hover:bg-dark-bg-secondary transition-all duration-200 ease-linear cursor-pointer"
+            onPointerDown={(e) => e.stopPropagation()}
+            onClick={(e) => {
               dispatch(setEditTaskCard({ index, label }));
-              setShowAddNewTaskCard(true)
+              setShowAddNewTaskCard(true);
             }}
           >
             <SquarePen size={16} />
           </button>
           <button
-            className="p-1 rounded-full hover:bg-bg-secondary transition-all duration-200 ease-linear"
-            onClick={() => handleDeleteButton(label, id)}
+            className="p-1 rounded-full hover:bg-bg-secondary dark:hover:bg-dark-bg-secondary transition-all duration-200 ease-linear cursor-pointer"
+            onPointerDown={(e) => e.stopPropagation()}
+            onClick={(e) => handleDeleteButton(label, id)}
           >
             <Trash2 size={16} color="#fb2c36" />
           </button>

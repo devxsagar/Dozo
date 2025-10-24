@@ -4,11 +4,11 @@
 
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:where(.dark, .dark *));
 
 body {
   font-family: "Inter", sans-serif;
-  background-color: var(--color-bg-body);
+ 
 }
 
 .animate-hover {
@@ -18,11 +18,16 @@ body {
 @theme {
   --text-xxs: 10px;
   --color-bg-body: #f9fafb;
+  --color-dark-bg-body: #0f0f0f;
   --color-bg-primary: #ffffff;
+  --color-dark-bg-primary: #181818;
   --color-bg-secondary: #eceef2;
+  --color-dark-bg-secondary: #3e3e3e;
   --color-bg-task-count: #F2ECEE;
   --color-text-primary: #281018;
+  --color-dark-text-primary: #ffffff;
   --color-text-secondary: #654A55;
+  --color-dark-text-secondary: #999999;
   --color-text-task-count: #030213;
   --color-text-high-priority: #9f0712;
   --color-text-medium-priority: #894b00;
