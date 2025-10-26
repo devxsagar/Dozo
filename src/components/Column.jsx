@@ -129,7 +129,7 @@ const Column = ({ label, color, tasks }) => {
       {/* Footer - Add a task */}
       <div className="absolute bottom-0 border-t w-full px-4 py-4">
         <button
-          className="flex w-full items-center gap-3 px-1.5 py-2 rounded-sm cursor-pointer hover:bg-bg-secondary dark:hover:bg-dark-bg-secondary select-none text-text-secondary dark:text-dark-text-secondary hover:text-text-primary dark:hover:text-dark-text-primary hover:font-medium transition-all duration-200 ease-linear"
+          className="flex w-full items-center gap-3 px-1.5 py-2 rounded-sm cursor-pointer hover:bg-bg-secondary dark:hover:bg-dark-bg-secondary select-none text-text-secondary dark:text-dark-text-secondary hover:text-text-primary dark:hover:text-dark-text-primary hover:font-medium animate-hover"
           onClick={() => setShowAddNewTaskCard(true)}
         >
           <Plus size={12} />

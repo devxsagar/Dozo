@@ -12,7 +12,7 @@ const Navbar = ({ toggleDarkMode, darkMode }) => {
   const dispatch = useDispatch();
 
   return (
-    <nav className="px-1 py-4 max-md:flex max-md:flex-col max-md:gap-4">
+    <nav className="px-1 py-4 max-lg:flex max-lg:flex-col max-md:gap-4 max-lg:gap-8">
       {/* Logo */}
       <div className="w-full flex items-center justify-between">
         <a href="/" className="flex items-center gap-1 text-xl font-medium">
@@ -26,23 +26,23 @@ const Navbar = ({ toggleDarkMode, darkMode }) => {
         <div className="flex items-center gap-8 max-md:gap-4">
           {/* Theme */}
           <button
-            className="group/theme p-1 hover:bg-bg-secondary dark:hover:bg-dark-bg-secondary  hover:rounded-full transition-all duration-200 ease-linear"
+            className="group/theme p-1 hover:bg-bg-secondary dark:hover:bg-dark-bg-secondary  hover:rounded-full animate-hover"
             onClick={toggleDarkMode}
           >
             {darkMode ? (
               <Moon
-                className="cursor-pointer opacity-70 group-hover/theme:opacity-100 duration-200 transition-all ease-linear"
+                className="cursor-pointer opacity-70 group-hover/theme:opacity-100 animate-hover"
                 size={22}
               />
             ) : (
               <Sun
-                className="cursor-pointer opacity-70 group-hover/theme:opacity-100 duration-200 transition-all ease-linear"
+                className="cursor-pointer opacity-70 group-hover/theme:opacity-100 animate-hover"
                 size={22}
               />
             )}
           </button>
           {/* search box only for large screen */}
-          <div className="relative flex items-center gap-1 max-md:hidden">
+          <div className="relative flex items-center gap-1 max-lg:hidden">
             <Search className="absolute left-3  " size={16} />
             <Input
               className="lg:w-[300px] pl-8 "
@@ -60,7 +60,7 @@ const Navbar = ({ toggleDarkMode, darkMode }) => {
       </div>
 
       {/* search box only for mobile screen */}
-      <div className="relative flex items-center gap-1 md:hidden">
+      <div className="relative flex items-center gap-1 lg:hidden">
         <Search className="absolute left-3  " size={16} />
         <Input
           className="lg:w-full pl-8 "

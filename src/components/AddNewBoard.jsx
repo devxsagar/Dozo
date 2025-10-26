@@ -68,7 +68,7 @@ const AddNewBoard = () => {
         <h4 className="text-base font-medium">Add New Board</h4>
         <X
           size={18}
-          className="opacity-60 hover:opacity-100 transition-all duration-200 ease-linear cursor-pointer"
+          className="opacity-60 hover:opacity-100 animate-hover cursor-pointer"
           onClick={() => {
             dispatch(closeBoardCard(false));
             dispatch(setEditBoardDetails(""));

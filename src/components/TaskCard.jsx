@@ -55,7 +55,7 @@ const TaskCard = ({ label, task, index, setShowAddNewTaskCard, isOver }) => {
         </p>
         <div className="flex items-center gap-3">
           <button
-            className="p-1 rounded-full hover:bg-bg-secondary dark:hover:bg-dark-bg-secondary transition-all duration-200 ease-linear cursor-pointer"
+            className="p-1 rounded-full hover:bg-bg-secondary dark:hover:bg-dark-bg-secondary animate-hover cursor-pointer"
             onPointerDown={(e) => e.stopPropagation()}
             onClick={(e) => {
               dispatch(setEditTaskCard({ index, label }));
@@ -65,7 +65,7 @@ const TaskCard = ({ label, task, index, setShowAddNewTaskCard, isOver }) => {
             <SquarePen size={16} />
           </button>
           <button
-            className="p-1 rounded-full hover:bg-bg-secondary dark:hover:bg-dark-bg-secondary transition-all duration-200 ease-linear cursor-pointer"
+            className="p-1 rounded-full hover:bg-bg-secondary dark:hover:bg-dark-bg-secondary animate-hover cursor-pointer"
             onPointerDown={(e) => e.stopPropagation()}
             onClick={(e) => handleDeleteButton(label, id)}
           >
