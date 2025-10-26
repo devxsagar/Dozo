@@ -54,17 +54,17 @@ const Column = ({ label, color, tasks }) => {
             {tasks.length}
           </p>
         </div>
-        {/* Options and Add Icon */}
+        {/* Add and Options Button */}
         <div className="relative flex items-center gap-3">
           <button
-            className="p-1 hover:bg-bg-secondary dark:hover:bg-dark-bg-secondary rounded-md transition-all duration-200 ease-linear"
+            className="p-1 hover:bg-bg-secondary dark:hover:bg-dark-bg-secondary rounded-md animate-hover cursor-pointer"
             onClick={() => setShowAddNewTaskCard(true)}
           >
             <Plus size={16} />
           </button>
           <button
             ref={ellipsisButtonRef}
-            className="p-1 hover:bg-bg-secondary dark:hover:bg-dark-bg-secondary rounded-md transition-all duration-200 ease-linear"
+            className="p-1 hover:bg-bg-secondary dark:hover:bg-dark-bg-secondary rounded-md animate-hover cursor-pointer"
             onClick={() => setOptionsMenu((prev) => !prev)}
           >
             <Ellipsis size={16} />

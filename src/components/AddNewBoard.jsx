@@ -68,7 +68,7 @@ const AddNewBoard = () => {
         <h4 className="text-base font-medium">Add New Board</h4>
         <X
           size={18}
-          className="opacity-60 hover:opacity-100 transition-all duration-200 ease-linear"
+          className="opacity-60 hover:opacity-100 transition-all duration-200 ease-linear cursor-pointer"
           onClick={() => {
             dispatch(closeBoardCard(false));
             dispatch(setEditBoardDetails(""));
@@ -96,6 +96,7 @@ const AddNewBoard = () => {
 
         <span className="flex gap-2 justify-end items-center">
           <Button
+            className="cursor-pointer"
             variant="outline"
             onClick={() => {
               dispatch(closeBoardCard(false));
@@ -104,7 +105,7 @@ const AddNewBoard = () => {
           >
             Cancel
           </Button>
-          <Button variant="default" type="submit">
+          <Button variant="default" type="submit" className="cursor-pointer">
             {editBoardName ? "Edit Board" : "Add Board"}
           </Button>
         </span>

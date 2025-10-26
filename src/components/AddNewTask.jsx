@@ -45,7 +45,7 @@ const AddNewTask = ({ label, setShowAddNewTaskCard }) => {
     }
   };
 
-  // Loading data if editing a task
+  // Load data when click on edit button of a task card
   useEffect(() => {
     if (!editTaskCard.label || editTaskCard.index === null) return;
 
@@ -56,7 +56,7 @@ const AddNewTask = ({ label, setShowAddNewTaskCard }) => {
 
     if (editTaskCard.label) {
       setDate(editTaskPreviousData.dueDate);
-      setPriority(editTaskPreviousData.priority || "high");
+      setPriority(editTaskPreviousData.priority);
       setTaskDetails({
         title: editTaskPreviousData.title,
         description: editTaskPreviousData.description,
@@ -72,7 +72,7 @@ const AddNewTask = ({ label, setShowAddNewTaskCard }) => {
         <h4 className="text-base font-medium">Add New Task</h4>
         <X
           size={18}
-          className="opacity-60 hover:opacity-100 transition-all duration-200 ease-linear"
+          className="opacity-60 hover:opacity-100 animate-hover cursor-pointer"
           onClick={() => {
             setShowAddNewTaskCard(false);
             dispatch(setEditTaskCard({ index: null, label: "" }));
@@ -158,6 +158,7 @@ const AddNewTask = ({ label, setShowAddNewTaskCard }) => {
         {/* Buttons */}
         <div className="flex items-center justify-end gap-3 mt-6">
           <Button
+            className="cursor-pointer"
             variant="outline"
             onClick={() => {
               setShowAddNewTaskCard(false);
@@ -166,7 +167,9 @@ const AddNewTask = ({ label, setShowAddNewTaskCard }) => {
           >
             Cancel
           </Button>
-          <Button type="submit">{editTaskCard.label ? "Edit Task" : "Add Task"}</Button>
+          <Button type="submit" className="cursor-pointer" >
+            {editTaskCard.label ? "Edit Task" : "Add Task"}
+          </Button>
         </div>
       </form>
     </div>

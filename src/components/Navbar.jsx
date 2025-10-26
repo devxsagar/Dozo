@@ -53,7 +53,7 @@ const Navbar = ({ toggleDarkMode, darkMode }) => {
             />
           </div>
           {/* Add Board */}
-          <Button onClick={() => dispatch(showBoardCard(true))}>
+          <Button onClick={() => dispatch(showBoardCard(true))} className="cursor-pointer" >
             <Plus /> Add a board
           </Button>
         </div>
