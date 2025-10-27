@@ -3,12 +3,19 @@ import store from "./store/store";
 import Navbar from "./components/Navbar";
 import Board from "./components/Board";
 import { useEffect, useState } from "react";
+import { clarity } from "react-microsoft-clarity";
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem("theme");
     return savedTheme ? JSON.parse(savedTheme) : false;
   });
+
+  useEffect(() => {
+    if (process.env.NODE_ENV === "production") {
+      clarity.init("twxi7ytvvo");
+    }
+  }, []);
 
   // useEffect runs whenever `darkMode` changes
   useEffect(() => {
