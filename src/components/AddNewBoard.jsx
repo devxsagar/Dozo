@@ -11,7 +11,7 @@ import { addNewBoard, editBoard } from "@/store/board-slice";
 
 const AddNewBoard = () => {
   const [boardName, setBoardName] = useState("");
-  const [color, setColor] = useState("#ff0000");
+  const [color, setColor] = useState("#bef264");
 
   const data = useSelector((state) => state.board);
   const editBoardName = useSelector((state) => state.ui.editBoardDetails.label);
