@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import Board from "./components/Board";
 import { useEffect, useState } from "react";
 import { clarity } from "react-microsoft-clarity";
+import Footer from "./components/Footer";
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(() => {
@@ -40,9 +41,12 @@ const App = () => {
   return (
     <Provider store={store}>
       <div>
-        <div className="max-w-screen lg:w-[1200px] p-2 mx-auto">
-          <Navbar toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
-          <Board />
+        <div className="max-w-screen lg:w-[1200px] min-h-screen p-2 mx-auto flex flex-col justify-between gap-y-20">
+          <div>
+            <Navbar toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
+            <Board />
+          </div>
+          <Footer />
         </div>
       </div>
     </Provider>
