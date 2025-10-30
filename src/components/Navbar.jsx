@@ -42,7 +42,7 @@ const Navbar = ({ toggleDarkMode, darkMode }) => {
             )}
           </button>
           {/* search box only for large screen */}
-          <div className="relative flex items-center gap-1 max-lg:hidden">
+          {/* <div className="relative flex items-center gap-1 max-lg:hidden">
             <Search className="absolute left-3  " size={16} />
             <Input
               className="lg:w-[300px] pl-8 "
@@ -51,7 +51,7 @@ const Navbar = ({ toggleDarkMode, darkMode }) => {
               onChange={(e) => setInput(e.target.value)}
               placeholder="search tasks here..."
             />
-          </div>
+          </div> */}
           {/* Add Board */}
           <Button onClick={() => dispatch(showBoardCard(true))} className="cursor-pointer" >
             <Plus /> Add a board
@@ -60,7 +60,7 @@ const Navbar = ({ toggleDarkMode, darkMode }) => {
       </div>
 
       {/* search box only for mobile screen */}
-      <div className="relative flex items-center gap-1 lg:hidden">
+      {/* <div className="relative flex items-center gap-1 lg:hidden">
         <Search className="absolute left-3  " size={16} />
         <Input
           className="lg:w-full pl-8 "
@@ -69,7 +69,7 @@ const Navbar = ({ toggleDarkMode, darkMode }) => {
           onChange={(e) => setInput(e.target.value)}
           placeholder="search tasks here..."
         />
-      </div>
+      </div> */}
 
       <Toaster position="top-center" />
     </nav>
